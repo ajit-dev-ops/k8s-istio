@@ -18,7 +18,7 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
     --kubernetes-version=v1.10.0
 
     echo --------------------------Downloading IStio source from gihub--------------------------
-    #curl -L https://git.io/getLatestIstio | sh -
+    curl -L https://git.io/getLatestIstio | sh -
     export PATH=$PWD/bin:$PATH
     cd istio-0.8.0
 
