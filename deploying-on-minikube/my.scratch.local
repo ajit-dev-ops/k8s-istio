@@ -1,0 +1,14 @@
+
+kubectl label namespace default istio-injection=enabled
+kubectl get namespace -L istio-injection
+
+
+ki port-forward svc/servicegraph 8088:8088
+
+
+mtls links
+https://preliminary.istio.io/docs/tasks/security/mutual-tls/
+
+
+istio issues
+https://github.com/istio/issues/issues/266

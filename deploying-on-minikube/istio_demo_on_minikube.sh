@@ -17,8 +17,8 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
     kubectl label namespace default istio-injection=enabled --overwrite
 
     echo --------------------------DEMO:  Deploying an istio enabled nginx app to minikube--------------------------
-    kubectl run my-nginx-with-istio-1 --image=ajitchahal/nginx-2
-    kubectl run my-nginx-with-istio-2 --image=ajitchahal/nginx-2
+    kubectl run my-nginx-with-istio-1 --image=ajitchahal/nginx-2 --port=80
+    kubectl run my-nginx-with-istio-2 --image=ajitchahal/nginx-2 --port=80
 
 
     echo --------------------------DEMO:  Deploying an nginx app  - without istio - to minikube--------------------------

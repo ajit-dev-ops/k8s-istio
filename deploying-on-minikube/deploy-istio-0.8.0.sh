@@ -11,7 +11,7 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
     minikube delete
 
     echo --------------------------installing minikube with pre-requisites--------------------------
-    minikube start \
+    minikube --memory 8192 --cpus 2 start \
     --extra-config=controller-manager.cluster-signing-cert-file="/var/lib/localkube/certs/ca.crt" \
     --extra-config=controller-manager.cluster-signing-key-file="/var/lib/localkube/certs/ca.key" \
     --extra-config=apiserver.admission-control="NamespaceLifecycle,LimitRanger,ServiceAccount,PersistentVolumeLabel,DefaultStorageClass,DefaultTolerationSeconds,MutatingAdmissionWebhook,ValidatingAdmissionWebhook,ResourceQuota" \
