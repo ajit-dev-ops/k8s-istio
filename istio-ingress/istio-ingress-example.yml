@@ -1,0 +1,83 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    run: my-nginx-with-istio
+  name: my-nginx-with-istio
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: my-nginx-with-istio
+  template:
+    metadata:
+      labels:
+        run: my-nginx-with-istio
+    spec:
+     volumes:
+      - name: config-volume
+        configMap:
+          name: ing-conf
+     containers:
+      - image: ajitchahal/nginx-2
+        imagePullPolicy: Always
+        name: my-nginx-with-istio
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - mountPath: /etc/nginx/nginx.conf
+          name: config-volume
+          subPath: nginx.conf
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    run: my-nginx-with-istio
+    app: v1
+  name: my-nginx-with-istio
+spec:
+  ports:
+  - port: 8080
+    protocol: TCP
+    targetPort: 80
+    name: http
+  selector:
+    run: my-nginx-with-istio
+  type: ClusterIP
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: istio-my-gateway
+spec:
+  selector:
+    istio: ingressgateway # use Istio default gateway implementation
+  servers:
+  - port:
+      number: 443
+      name: https
+      protocol: HTTPS
+    tls:
+      mode: SIMPLE
+      serverCertificate: /etc/istio/ingressgateway-certs/tls.crt
+      privateKey: /etc/istio/ingressgateway-certs/tls.key
+    hosts:
+    - "my-tls.ajit.de"
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: istio-my-vs
+spec:
+  hosts:
+  - "my-tls.ajit.de"
+  gateways:
+  - istio-my-gateway
+  http:
+  - match:
+    route:
+    - destination:
+        port:
+          number: 8080
+        host: my-nginx-with-istio
