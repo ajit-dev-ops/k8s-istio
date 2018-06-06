@@ -1,17 +1,18 @@
-# working ingress example with mTLS enabled services
+# Working istio ingress gateway example with mTLS enabled services
 
 Istio release cycle explained
 https://github.com/istio/istio/blob/master/release/README.md
 
 ### As of 06.June.2018 - playing with istio 0.8.0 + 
-<span style="color:red"> Ingress only works with daily release</span>
+<span style="color:red"> Ingress only works with following daily release</span>
 
 https://gcsweb.istio.io/gcs/istio-prerelease/daily-build/release-0.8-20180531-09-15/
 
+<hr/>
 Reference Issue:
 https://github.com/istio/istio/issues/5686
 
-###Links to documentation
+### Links to documentation
 
 https://istio.io/docs/tasks/traffic-management/ingress -> 
 https://istio.io/docs/reference/config/istio.networking.v1alpha3#HTTPRoute
@@ -29,7 +30,7 @@ https://preliminary.istio.io/docs/tasks/traffic-management/ingress/
 
 4. Routing must be HOST header based and not sub-path based
 
-##How to steps:
+## How to steps:
 
 1. Create a secret with Certificates for istio gateway
 
