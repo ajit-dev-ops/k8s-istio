@@ -1,4 +1,4 @@
-
+kubectl label namespace default istio-injection=disabled
 kubectl label namespace default istio-injection=enabled
 kubectl get namespace -L istio-injection
 
@@ -12,3 +12,12 @@ https://preliminary.istio.io/docs/tasks/security/mutual-tls/
 
 istio issues
 https://github.com/istio/issues/issues/266
+
+
+
+    kubectl delete deployment my-nginx-with-istio-1
+    kubectl delete deployment my-nginx-with-istio-2
+    kubectl delete deployment my-nginx-no-istio -n my-ns
+    kubectl delete service my-nginx-with-istio-1
+    kubectl delete service my-nginx-with-istio-2
+    kubectl delete service my-nginx-no-istio -n my-ns

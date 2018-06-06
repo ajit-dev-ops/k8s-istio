@@ -18,9 +18,13 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
     --kubernetes-version=v1.10.0
 
     echo --------------------------Downloading IStio source from gihub--------------------------
-    curl -L https://git.io/getLatestIstio | sh -
+    # ingress with mTLS does not work with istio 0.8.0
+    #curl -L https://git.io/getLatestIstio | sh -
+    #cd istio-0.8.0
+    wget https://storage.googleapis.com/istio-prerelease/daily-build/release-0.8-20180531-09-15/istio-release-0.8-20180531-09-15-linux.tar.gz -O - | tar -xz
+    cd istio-release-0.8-20180531-09-15
+
     export PATH=$PWD/bin:$PATH
-    cd istio-0.8.0
 
     echo --------------------------installing istio with tls--------------------------
     kubectl apply -f install/kubernetes/istio-demo-auth.yaml
