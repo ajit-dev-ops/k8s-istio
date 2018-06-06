@@ -1,0 +1,16 @@
+# Writing egress rules for an istio enabled pod and mTLS enabled side car injected.
+
+## Goals
+1. Access an https & https service external to K8s 
+2. Redeploy app and see if egress till functions properly
+3. Test if the hack of accessing https services is still required
+   e.g. in istio 0.6.0 http://api.ajit.de:443/test-service was required.
+
+## Results
+
+1. A **serviceEntry resource** is required to be defined : Works
+2. In istio 0.6.0 the egress rules were not working but all is fine using 0.8.0
+deleted a deployment and redeployed it, all the external traffic is reachable
+3. Not all apps can call https endpoint normally
+for e.g. https://google.com
+ 
