@@ -2,7 +2,6 @@ apiVersion: networking.istio.io/v1alpha3
 kind: ServiceEntry
 metadata:
   name: google-ext
-  #namespace: n2
 spec:
   hosts:
   - www.google.com

@@ -30,6 +30,10 @@ https://preliminary.istio.io/docs/tasks/traffic-management/ingress/
 
 4. Routing must be HOST header based and not sub-path based
 
+5. if *.ajit.de works  - 
+ its a wild card domain 
+ Yes this is configured in gateway and common to namespace but not to whole k8s cluster.
+
 ## How to steps:
 
 1. Create a secret with Certificates for istio gateway

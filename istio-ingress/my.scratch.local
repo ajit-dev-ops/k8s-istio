@@ -1,1 +1,7 @@
    ki create -n istio-system secret tls istio-ingressgateway-certs --key tls.key --cert tls.crt
+
+
+   kubectl create -n istio-system secret tls istio-ingressgateway-certs --key tls.key.domain --cert tls.crt.domain
+
+
+       kubectl expose deploy my-nginx-with-istio --port=80 --target-port=80
