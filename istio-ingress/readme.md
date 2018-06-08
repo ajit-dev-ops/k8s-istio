@@ -45,7 +45,7 @@ https://preliminary.istio.io/docs/tasks/traffic-management/ingress/
     
     kubectl create -n istio-system secret tls istio-ingressgateway-certs --key /tmp/tls.key --cert /tmp/tls.crt 
     ```
-2. Restart istio gateway container & Wait.......  60-120 seconds to istio get initialized...  (???)
+2. Restart istio gateway container & Wait.......  60-120 seconds to istio get initialized...  
 
 3. Deploy istio-ingress-example.yml in a namespace with side-car auto injection enabled
   
