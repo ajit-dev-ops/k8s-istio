@@ -2,7 +2,7 @@ apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
 metadata:
   name: istio-my-gateway
-  namespace: commontools
+  #namespace: test1
 spec:
   selector:
     istio: ingressgateway # use Istio default gateway implementation
