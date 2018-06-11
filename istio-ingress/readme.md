@@ -71,3 +71,103 @@ https://preliminary.istio.io/docs/tasks/traffic-management/ingress/
 
 5. Note: with curl the above request results in ssl protocol error therefore use paw or postman. to fix ?
 
+
+## Gateway Caveats
+
+### Wildcard gateway can be defined only once 
+```yaml
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: istio-my-gateway
+  namespace: test1
+spec:
+  selector:
+    istio: ingressgateway # use Istio default gateway implementation
+  servers:
+  - port:
+      number: 443
+      name: https
+      protocol: HTTPS
+    tls:
+      mode: SIMPLE
+      serverCertificate: /etc/istio/ingressgateway-certs/tls.crt
+      privateKey: /etc/istio/ingressgateway-certs/tls.key
+    hosts:
+    - "*.ajit.de"
+```  
+
+So a wildcard gateway as defined above can only be defined once in whole K8s cluster, it is not allowed to be replicated across namespaces.
+Therefore if the domain is unique to a namespace its a good idea to define this Gateway once and then any no. of virtual services can be defined in the same namespace.
+But if any virtual service is defined in another namespace matching same wildcard domain then istio ingress will not resolve this service.
+
+
+Issue link
+https://github.com/istio/istio/issues/5517
+
+### Specific domain gateway can be defined in each namespace
+```yaml
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: istio-my-gateway
+  namespace: test1
+spec:
+  selector:
+    istio: ingressgateway # use Istio default gateway implementation
+  servers:
+  - port:
+      number: 443
+      name: https
+      protocol: HTTPS
+    tls:
+      mode: SIMPLE
+      serverCertificate: /etc/istio/ingressgateway-certs/tls.crt
+      privateKey: /etc/istio/ingressgateway-certs/tls.key
+    hosts:
+    - "my-tls-2.ajit.de"
+    - "my-tls.ajit.de"
+```
+
+A Gatwway such as above can be defined once in a namespace and all the domains can be assembled here. For other namespace more such gatways would be defined.
+For each such domain 1 vertual service must be created though. for e.g. 
+```yaml
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: istio-my-vs-2
+spec:
+  hosts:
+  - "my-tls-2.ajit.de"
+  gateways:
+  - istio-my-gateway
+  http:
+  - match:
+    route:
+    - destination:
+        port:
+          number: 8080
+        host: my-nginx-with-istio-2 # name of the K8s service in same ns
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: istio-my-vs-2
+spec:
+  hosts:
+  - "my-tls.ajit.de"
+  gateways:
+  - istio-my-gateway
+  http:
+  - match:
+    route:
+    - destination:
+        port:
+          number: 8080
+        host: my-nginx-with-istio # name of the K8s service in same ns
+
+```
+
+
+**Summary either use wild card domain gateway once in whole K8s cluster or use one gateway per namespace with list of all domains.**
+
