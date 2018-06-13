@@ -15,6 +15,9 @@
 - ServiceEntry (Formerly EgressRule)
 
 
+### Istio flow diagram
+![Istio flow diagram](assets/istio0.8-flow-diagram.png)
+
 ### Enabling Automatic side-car Injection 
 kubectl label namespace argonautsmunich istio-injection=enabled
 
