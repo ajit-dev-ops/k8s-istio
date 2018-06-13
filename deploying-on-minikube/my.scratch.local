@@ -1,5 +1,6 @@
 kubectl label namespace default istio-injection=disabled
 kubectl label namespace default istio-injection=enabled
+kubectl label namespace commontools istio-injection=enabled
 kubectl get namespace -L istio-injection
 
 
