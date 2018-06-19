@@ -17,7 +17,7 @@ https://github.com/istio/istio/issues/5686
 https://istio.io/docs/tasks/traffic-management/ingress -> 
 https://istio.io/docs/reference/config/istio.networking.v1alpha3#HTTPRoute
 https://preliminary.istio.io/docs/tasks/traffic-management/ingress/ 
-
+gateway - https://istio.io/docs/reference/config/istio.networking.v1alpha3/#Server.TLSOptions.TLSmode
 
 ## Goals of this exercise: 
 
@@ -32,7 +32,7 @@ https://preliminary.istio.io/docs/tasks/traffic-management/ingress/
 
 5. if *.ajit.de works  - 
  its a wild card domain 
- Yes this is configured in gateway and common to namespace but not to whole k8s cluster.
+ Answer: Yes this is configured in gateway and common to namespace but not to whole k8s cluster. Such wilde card rule canonly be defined one in whole cluster, but it affects only 1 cluster for routing rules.
 
 ## How to steps:
 

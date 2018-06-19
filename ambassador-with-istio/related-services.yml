@@ -1,0 +1,50 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    getambassador.io/config: |
+      ---
+      apiVersion: ambassador/v0
+      kind:  Mapping
+      name:  httpbin_mapping
+      prefix: /hello/
+      service: my-nginx-with-istio-1.default:80
+      tls: upstream
+      rewrite: /
+  labels:
+    run: my-nginx-with-istio-1
+  name: my-nginx-with-istio-1
+  namespace: default
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+    name: http
+  selector:
+    run: my-nginx-with-istio-1
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    getambassador.io/config: |
+      ---
+      apiVersion: ambassador/v0
+      kind:  Mapping
+      name:  mapping2
+      prefix: /hello2/
+      service: my-nginx-no-istio.my-ns:80
+  labels:
+    run: my-nginx-no-istio
+  name: my-nginx-no-istio
+  namespace: my-ns
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+    name: http
+  selector:
+    run: my-nginx-no-istio
