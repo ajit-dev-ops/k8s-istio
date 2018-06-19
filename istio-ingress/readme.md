@@ -38,12 +38,12 @@ gateway - https://istio.io/docs/reference/config/istio.networking.v1alpha3/#Serv
 
 1. Create a secret with Certificates for istio gateway
 
-    Generating certificates:
+    [Generating certificates](https://archive.istio.io/v0.6/docs/tasks/traffic-management/ingress#configuring-secure-ingress-https:
     
     ```bash
     openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout tls.key -out tls.crt -subj "/CN=*.ajit.de"
     
-    kubectl create -n istio-system secret tls istio-ingressgateway-certs --key /tmp/tls.key --cert /tmp/tls.crt 
+    kubectl create -n istio-system secret tls istio-ingressgateway-certs --key tls.key --cert tls.crt
     ```
 2. Restart istio gateway container & Wait.......  60-120 seconds to istio get initialized...  
 
@@ -66,7 +66,7 @@ gateway - https://istio.io/docs/reference/config/istio.networking.v1alpha3/#Serv
     
     for e.g. then run (using postman)
     ```bash
-    curl "https://192.168.99.100:31390/" -H 'Host: my-tls.ajit.de'
+    curl "https://192.168.99.100:31390/" -H 'Host: app-1.ajit.de'
     ```
 
 5. Note: with curl the above request results in ssl protocol error therefore use paw or postman. to fix ?

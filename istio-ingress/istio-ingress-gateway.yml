@@ -16,8 +16,8 @@ spec:
       serverCertificate: /etc/istio/ingressgateway-certs/tls.crt
       privateKey: /etc/istio/ingressgateway-certs/tls.key
     hosts:
-    - "my-tls-2.ajit.de"
-    - "my-tls.ajit.de"
+    - "app-1.ajit.de"
+    - "app-2.ajit.de"
 ---
 #Use following wild card domain gateway only if this wilde card domain will be used by one namespace
 #apiVersion: networking.istio.io/v1alpha3

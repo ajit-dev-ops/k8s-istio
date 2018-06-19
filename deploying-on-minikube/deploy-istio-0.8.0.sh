@@ -36,6 +36,8 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
     kubectl get pods -n istio-system
 	echo --------------------------enabling 'default' namespace For istio automatic sidecar injection--------------------------
     kubectl label namespace default istio-injection=enabled --overwrite
+    echo ---------------wait till all istio pods are running....
+    kubectl get pods -n istio-system -w
 
 else
   echo Goodbye...!

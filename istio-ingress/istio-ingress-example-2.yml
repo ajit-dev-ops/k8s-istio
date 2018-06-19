@@ -2,17 +2,17 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    run: my-nginx-with-istio-2
-  name: my-nginx-with-istio-2
+    run: app-with-istio-2
+  name: app-with-istio-2
 spec:
   replicas: 1
   selector:
     matchLabels:
-      run: my-nginx-with-istio-2
+      run: app-with-istio-2
   template:
     metadata:
       labels:
-        run: my-nginx-with-istio-2
+        run: app-with-istio-2
     spec:
      volumes:
       - name: config-volume
@@ -21,7 +21,7 @@ spec:
      containers:
       - image: ajitchahal/nginx-2
         imagePullPolicy: Always
-        name: my-nginx-with-istio-2
+        name: app-with-istio-2
         ports:
         - containerPort: 80
         volumeMounts:
@@ -32,18 +32,28 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
+  annotations:
+    getambassador.io/config: |
+      ---
+      apiVersion: ambassador/v0
+      kind:  Mapping
+      name:  httpbin_mapping
+      prefix: /hello/
+      service: app-with-istio-2.default:80
+      tls: upstream
+      rewrite: /
   labels:
-    run: my-nginx-with-istio-2
-    app: v1
-  name: my-nginx-with-istio-2
+    run: app-with-istio-2
+  name: app-with-istio-2
+  namespace: default
 spec:
   ports:
-  - port: 8080
+  - port: 80
     protocol: TCP
     targetPort: 80
     name: http
   selector:
-    run: my-nginx-with-istio-2
+    run: app-with-istio-2
   type: ClusterIP
 ---
 apiVersion: networking.istio.io/v1alpha3
@@ -52,7 +62,7 @@ metadata:
   name: istio-my-vs-2
 spec:
   hosts:
-  - "my-tls-2.ajit.de"
+  - "app-2.ajit.de"
   gateways:
   - istio-my-gateway
   http:
@@ -60,5 +70,5 @@ spec:
     route:
     - destination:
         port:
-          number: 8080
-        host: my-nginx-with-istio-2
+          number: 80
+        host: app-with-istio-2
