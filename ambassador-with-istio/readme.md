@@ -1,5 +1,11 @@
 # Deploying ambassador on minikube and hooking it with mTLS enabled istio
 
+### Ambassador diagnostics
+kg port-forward ambassador-cf8f86d4b-7l2mg 8877 
+[http://localhost:8877/ambassador/v0/diag/?loglevel=info](http://localhost:8877/ambassador/v0/diag/?loglevel=info)
+![Image](../assets/Ambassador Diagnostic Overview 2018-06-20 09-42-08.png)
+
+
 ### https://www.getambassador.io/user-guide/with-istio
 
 - Deploying ambassador, rbac roles exception, no access to list configmaps
