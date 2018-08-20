@@ -171,3 +171,5 @@ spec:
 
 **Summary either use wild card domain gateway once in whole K8s cluster or use one gateway per namespace with list of all domains.**
 
+##Links
+https://istio.io/docs/tasks/traffic-management/secure-ingress/

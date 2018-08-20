@@ -7,7 +7,7 @@ metadata:
   labels:
     run: app-no-istio
   name: app-no-istio
-  namespace: my-ns
+  namespace: commontools
 spec:
   progressDeadlineSeconds: 600
   replicas: 1
@@ -25,6 +25,8 @@ spec:
       creationTimestamp: null
       labels:
         run: app-no-istio
+      annotations:
+        sidecar.istio.io/inject: "false"
     spec:
       containers:
       - image: ajitchahal/nginx-2
@@ -45,7 +47,7 @@ metadata:
   labels:
     run: app-no-istio
   name: app-no-istio
-  namespace: my-ns
+  namespace: commontools
 spec:
   ports:
   - port: 80

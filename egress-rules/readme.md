@@ -1,3 +1,6 @@
+# Caveats
+ ### instead of egress 1 can allow all traffic while deploying istio
+ ### or 1 can use a service and custom endpoint resources to point to an external service, [docs](https://docs.openshift.org/latest/dev_guide/integrating_external_services.html#defining-a-service-for-an-external-database)
 # Writing egress rules for an istio enabled pod and mTLS enabled side car injected.
 
 ## Goals

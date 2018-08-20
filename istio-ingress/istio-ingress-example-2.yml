@@ -4,6 +4,7 @@ metadata:
   labels:
     run: app-with-istio-2
   name: app-with-istio-2
+  namespace: commontools
 spec:
   replicas: 1
   selector:
@@ -13,6 +14,7 @@ spec:
     metadata:
       labels:
         run: app-with-istio-2
+
     spec:
      volumes:
       - name: config-volume
@@ -45,7 +47,7 @@ metadata:
   labels:
     run: app-with-istio-2
   name: app-with-istio-2
-  namespace: default
+  namespace: commontools
 spec:
   ports:
   - port: 80
