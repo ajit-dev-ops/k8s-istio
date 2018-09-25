@@ -1,0 +1,58 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "1"
+  generation: 1
+  labels:
+    run: app-no-istio
+  name: app-no-istio
+  namespace: commontools
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      run: app-no-istio
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        run: app-no-istio
+      annotations:
+        sidecar.istio.io/inject: "false"
+    spec:
+      containers:
+      - image: ajitchahal/nginx-2
+        imagePullPolicy: Always
+        name: app-no-istio
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    getambassador.io/config: |
+      ---
+      apiVersion: ambassador/v0
+      kind:  Mapping
+      name:  mapping2
+      prefix: /hello2/
+      service: app-no-istio.my-ns:80
+  labels:
+    run: app-no-istio
+  name: app-no-istio
+  namespace: commontools
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+    name: http
+  selector:
+    run: app-no-istio

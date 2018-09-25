@@ -4,7 +4,7 @@ metadata:
   name: ambassador
   namespace: api-gateway
 spec:
-  replicas: 3
+  replicas: 1
   template:
     metadata:
       annotations:
