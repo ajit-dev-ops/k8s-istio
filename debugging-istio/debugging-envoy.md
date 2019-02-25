@@ -18,9 +18,14 @@ Detects changes to k8s services and pods and updates the all envoy configs for a
 #### 503 upstream errors: this happens when a pod/istio ingress is trying to connect to an underlaying pod which is deleted. Since pilot takes time to update all configs, this causes 503 upstream erros for some time.
 Solution for now: is to setup a default retry strategy in Global destination rule. 
 
+To do : https://istio.io/docs/reference/config/istio.networking.v1alpha3/#HTTPRetry
+
 ## config dump: 
 dumps the whole envoy config & all the services it knows about.
 
 ## logging : this can be used to cange envoy logging levels.
 
 
+## Using `istioctl` to debug istio configurations:
+>> Note: This can cause pilot to crash.
+https://istio.io/help/ops/traffic-management/proxy-cmd/
