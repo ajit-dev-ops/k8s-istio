@@ -5,7 +5,7 @@ Similar to NGINx is is also configured using a envoy config. This config can be 
 
 >> `ka port-forward identity-service-7b947747d7-8h2wj 15000:15000`
 
-![envoy debug info](assests/Envoy-Admin.png)
+![envoy debug info](./assets/Envoy-Admin.png)
 
 ## Certs: prints certs used and their expiration dates
 ## clusters: 
