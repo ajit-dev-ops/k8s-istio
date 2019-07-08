@@ -9,9 +9,11 @@ Note: any app can use certs in istio.default secret to talk to any app with mTLS
 
 
 ### Istio CA certs for mTLS
-- https://istio.io/docs/tasks/security/plugin-ca-cert/ 
-- https://archive.istio.io/v0.6/docs/tasks/security/plugin-ca-cert
+#### Generate self signed istio certs:
 - https://github.com/istio/istio/blob/master/security/samples/plugin_ca_certs/gen_certs.sh
+#### Plugging in self generated certs to istio:
+- https://istio.io/docs/tasks/security/plugin-ca-cert/ 
+
 
 
 ## get a cert from istio.default workload certs
