@@ -1,0 +1,30 @@
+apiVersion: "rbac.istio.io/v1alpha1"
+kind: ClusterRbacConfig
+metadata:
+  name: default
+spec:
+  mode: 'ON_WITH_EXCLUSION'
+  exclusion:
+    namespaces: ["default", "helm", "heptio-ark", "kube-public", "kube-system", "monitoring", "istio-system"]
+---
+apiVersion: "rbac.istio.io/v1alpha1"
+kind: ServiceRole
+metadata:
+  name: ping-gateway-auth-role
+  namespace: common
+spec:
+  rules:
+  - services: ["ping-service.commontools.svc.cluster.local"]
+    methods: ["*"]
+---
+apiVersion: "rbac.istio.io/v1alpha1"
+kind: ServiceRoleBinding
+metadata:
+  name: ping-gateway-auth-binding
+  namespace: common
+spec:
+  roleRef:
+    kind: ServiceRole
+    name: "ping-gateway-auth-role"
+  subjects:
+  - user: cluster.local/ns/istio-system/sa/istio-ingressgateway-service-account1 # this is the service account of istio ingress

@@ -3,6 +3,11 @@
  ### or 1 can use a service and custom endpoint resources to point to an external service, [docs](https://docs.openshift.org/latest/dev_guide/integrating_external_services.html#defining-a-service-for-an-external-database)
 # Writing egress rules for an istio enabled pod and mTLS enabled side car injected.
 
+## egress gateway to collect egress metrics
+- https://istio.io/docs/tasks/traffic-management/egress/egress-gateway/
+
+
+
 ## Goals
 1. Access an https & https service external to K8s 
 2. Redeploy app and see if egress till functions properly
