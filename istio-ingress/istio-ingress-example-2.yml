@@ -21,7 +21,8 @@ spec:
         configMap:
           name: ing-conf
      containers:
-      - image: ajitchahal/nginx-2
+      - image: docker.io/kennethreitz/httpbin
+        command: ["gunicorn", "--access-logfile", "-", "-b", "0.0.0.0:80", "httpbin:app"]
         imagePullPolicy: Always
         name: app-with-istio-2
         ports:
@@ -62,6 +63,7 @@ apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
   name: istio-my-vs-2
+  namespace: commontools
 spec:
   hosts:
   - "app-2.ajit.de"
