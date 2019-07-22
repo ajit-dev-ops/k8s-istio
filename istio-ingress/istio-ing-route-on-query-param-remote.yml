@@ -2,6 +2,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: "testvs"
+  namespace: commontools
   labels:
     app: testvs
 ---
@@ -94,7 +95,7 @@ metadata:
   namespace: commontools
 spec:
   hosts:
-  - testvs.internal.stage.context.cloud.sap
+  - testvs.internal.us.context.cloud.sap
   - app-edge.commontools.svc.cluster.local
   gateways:
   - cds-gateway
